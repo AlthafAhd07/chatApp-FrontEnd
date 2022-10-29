@@ -1,0 +1,37 @@
+https://search.muz.li/M2VlODEwYmFj?utm_source=muz.li-insp&utm_medium=article&utm_campaign=%2Finspiration%2Fchat-ui%2F
+https://search.muz.li/NmE4NGVhMjgz
+
+
+dataBase Structure
+    user
+        - id
+        - username
+        - firstName
+        - lastname
+        - avatar
+    
+    inbox_participents
+        - id
+        - userid
+        - inbox ids
+
+    inbox
+        - id
+        - last message
+        - last Message userId
+    
+    message
+        - id
+        - from
+        - to
+        - status
+        - message
+        - message created at
+
+
+
+
+socket.io 
+https://dev.to/bravemaster619/how-to-use-socket-io-client-correctly-in-react-app-o65
+
+https://devrix.com/tutorial/how-to-create-simple-react-chat-application-using-socket-io/
