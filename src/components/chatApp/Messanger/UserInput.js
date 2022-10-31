@@ -90,12 +90,11 @@ const UserInput = () => {
         <div className="main__InputAndEmoji">
           <input
             type="text"
-            name="message"
+            name="search"
             placeholder="Type a message here..."
             value={message}
             onInput={handleOnChange}
             autoComplete="off"
-            autoSave="false"
             ref={inpFocusRef}
             onKeyDown={(event) => {
               if (event.key === "Enter") {
@@ -104,6 +103,7 @@ const UserInput = () => {
               return;
             }}
           />
+
           <div>
             <SentimentSatisfiedAltOutlinedIcon
               onClick={() => setShowEmoji((old) => !old)}

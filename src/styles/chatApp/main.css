@@ -164,6 +164,13 @@
   margin-left: 10px;
   margin-right: 2px;
 }
+.main__InputAndEmoji > input::-webkit-contacts-auto-fill-button {
+  visibility: hidden;
+  display: none !important;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}
 
 .main__InputAndEmoji > div {
   position: absolute;
