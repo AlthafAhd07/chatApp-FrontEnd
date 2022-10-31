@@ -67,6 +67,7 @@ const Header = () => {
     <div className="main__header">
       <div className="main__headerWrapper">
         <div className="main__headerUserInfo">
+          <span onClick={() => setChatState("")}>b</span>
           <img src={profilePic} alt="" />
           <div>
             <h3>{opponent?.username}</h3>

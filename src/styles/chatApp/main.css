@@ -18,8 +18,8 @@
     width: 100% !important;
     /* border-radius: 0 0 20px 20px; */
     border-radius: 0;
-    height: calc(100% - 75px);
-    top: 75px;
+    height: calc(100% - 45px);
+    top: 45px;
     opacity: 1;
     min-width: 203px;
     transform: translateX(105%);
@@ -50,6 +50,7 @@
   justify-content: space-between;
   width: 93%;
   height: 100%;
+  overflow: hidden;
 }
 .main__headerUserInfo {
   display: flex;
@@ -58,6 +59,7 @@
 .main__headerUserInfo > img {
   width: 60px;
   height: 60px;
+  min-width: 60px;
   border-radius: 50%;
   background-color: #574d4d;
 }
