@@ -4,6 +4,7 @@ import VideocamIcon from "@mui/icons-material/Videocam";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import profilePic from "../../../images/vicky-hladynets-C8Ta0gwPbQg-unsplash.jpg";
 import { ChatStateContext } from "../../../pages/ChatApp";
+import { ReactComponent as BakcIcon } from "../../../images/thin-arrow-left-icon.svg";
 
 const Header = () => {
   const username = sessionStorage.getItem("username");
@@ -67,7 +68,9 @@ const Header = () => {
     <div className="main__header">
       <div className="main__headerWrapper">
         <div className="main__headerUserInfo">
-          <span onClick={() => setChatState("")}>b</span>
+          <span onClick={() => setChatState("")}>
+            <BakcIcon className="header__backIcon" />
+          </span>
           <img src={profilePic} alt="" />
           <div>
             <h3>{opponent?.username}</h3>

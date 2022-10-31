@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useRef } from "react";
 import "../../../styles/chatApp/main.css";
 import Header from "./Header";
 import Messages from "./Messages";
@@ -9,15 +9,6 @@ import { ChatStateContext } from "../../../pages/ChatApp";
 const Main = () => {
   const { chatState } = useContext(ChatStateContext);
   const GlobalFocusRefCount = useRef(true);
-  useEffect(() => {
-    function backpressFun() {
-      alert("hi how are you");
-    }
-    document.addEventListener("hardwareBackPress", backpressFun);
-
-    return () =>
-      document.removeEventListener("hardwareBackPress", backpressFun);
-  }, []);
 
   return (
     <>

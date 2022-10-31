@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import SendIcon from "@mui/icons-material/Send";
@@ -13,6 +13,7 @@ const UserInput = () => {
   const { chatState, setChatState, socket } = useContext(ChatStateContext);
   const [showEmoji, setShowEmoji] = useState(false);
   const [message, setMessage] = useState("");
+  const inpFocusRef = useRef();
 
   const handleOnChange = (event) => {
     setMessage(event.target.value);
@@ -34,6 +35,7 @@ const UserInput = () => {
       clearTimeout(timeoutId);
     };
   }, [message]);
+
   function sendMsg() {
     if (!message) {
       return;
@@ -69,6 +71,7 @@ const UserInput = () => {
       conversationId: chatState._id,
     });
     setMessage("");
+    inpFocusRef.current.focus();
     setChatState((old) => {
       return {
         ...old,
@@ -83,14 +86,17 @@ const UserInput = () => {
         <div className="main__attachFile">
           <AttachFileIcon />
         </div>
+
         <div className="main__InputAndEmoji">
           <input
-            type="string"
+            type="text"
             name="message"
             placeholder="Type a message here..."
             value={message}
             onInput={handleOnChange}
             autoComplete="off"
+            autoSave="false"
+            ref={inpFocusRef}
             onKeyDown={(event) => {
               if (event.key === "Enter") {
                 sendMsg();
@@ -125,6 +131,7 @@ const UserInput = () => {
             </div>
           </div>
         </div>
+
         <div className="main__SendAndVoice">
           {message ? (
             <SendIcon
