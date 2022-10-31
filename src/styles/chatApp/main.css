@@ -12,6 +12,29 @@
   border-left: 1px solid #e4d8d8db;
   border-right: 1px solid #e4d8d8db;
 }
+@media only screen and (max-width: 650px) {
+  .main {
+    position: absolute;
+    width: 100% !important;
+    border-radius: 0 0 20px 20px;
+    height: 525px !important;
+    top: 75px;
+    opacity: 1;
+    min-width: 203px;
+    transform: translateX(105%);
+  }
+  .main[data-chatmain="true"] {
+    position: absolute;
+    width: 100% !important;
+    border-radius: 0 0 20px 20px;
+    height: 525px !important;
+    top: 75px;
+    opacity: 1;
+    min-width: 203px;
+    transform: translateX(0%);
+  }
+}
+
 .main > * {
   width: 100%;
 }

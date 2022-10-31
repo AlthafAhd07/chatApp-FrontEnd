@@ -77,8 +77,8 @@ const Chats = ({ toggled, FetchALLChats }) => {
   return (
     <div
       className="controller__Chats"
+      data-height={toggled}
       style={{
-        height: `${toggled ? "370px" : "273px"}`,
         transition: "all 300ms ease-in-out",
       }}
     >

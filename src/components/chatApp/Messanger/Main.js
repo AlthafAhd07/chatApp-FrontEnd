@@ -7,12 +7,13 @@ import UserInput from "./UserInput";
 import { ChatStateContext } from "../../../pages/ChatApp";
 
 const Main = () => {
-  const { chatState } = useContext(ChatStateContext);
+  const { chatState = "hi friends" } = useContext(ChatStateContext);
   const GlobalFocusRefCount = useRef(true);
+  console.log(chatState);
   return (
     <>
       {chatState ? (
-        <main className="main">
+        <main className="main" data-chatmain={!!chatState}>
           <Header />
           <Messages GlobalFocusRefCount={GlobalFocusRefCount} />
           <UserInput />
@@ -20,6 +21,7 @@ const Main = () => {
       ) : (
         <main
           className="main"
+          data-chatmain={!!chatState}
           style={{
             display: "flex",
             alignItems: "center",

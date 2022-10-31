@@ -4,9 +4,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 .chatApp__wrapper {
-  width: 75vw;
+  width: 65vw;
   height: 75vh;
   border-radius: 20px;
   display: flex;
@@ -15,4 +16,28 @@
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px,
     rgba(50, 50, 93, 0.25) -1px 0px 5px -1px,
     rgba(0, 0, 0, 0.3) -1px -1px 3px -1px;
+  transition: all 300ms ease-in-out;
+}
+@media only screen and (max-width: 1200px) {
+  .chatApp__wrapper {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .chatApp__wrapper {
+    width: 85%;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .chatApp__wrapper {
+    width: 90%;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .chatApp__wrapper {
+    height: 600px !important;
+    width: 95%;
+    overflow: hidden !important;
+    position: relative;
+  }
 }
