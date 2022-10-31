@@ -1,13 +1,15 @@
 import React, { useContext, useEffect } from "react";
+
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import DoneIcon from "@mui/icons-material/Done";
 
 import { ChatStateContext } from "../../../pages/ChatApp";
-import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 const Chats = ({ toggled, FetchALLChats }) => {
   const username = sessionStorage.getItem("username");
   const { chatState, setChatState, socket, chatList, setChatList } =
     useContext(ChatStateContext);
+
   useEffect(() => {
     if (!chatState) {
       return;

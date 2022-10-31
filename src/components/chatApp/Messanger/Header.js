@@ -1,16 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
+
 import CallIcon from "@mui/icons-material/Call";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import profilePic from "../../../images/vicky-hladynets-C8Ta0gwPbQg-unsplash.jpg";
-import { ChatStateContext } from "../../../pages/ChatApp";
 import { ReactComponent as BakcIcon } from "../../../images/thin-arrow-left-icon.svg";
+
+import { ChatStateContext } from "../../../pages/ChatApp";
 
 const Header = () => {
   const username = sessionStorage.getItem("username");
   const { chatState, socket, setChatState } = useContext(ChatStateContext);
+
   const opponent = chatState?.opponentUserData;
+
   const [typing, setTyping] = useState(false);
+
   function diff_minutes(opponentOnlineTIme) {
     var diff = (new Date().getTime() - opponentOnlineTIme.getTime()) / 1000;
     diff /= 60;

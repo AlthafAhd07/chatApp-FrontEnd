@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
+
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import DoneIcon from "@mui/icons-material/Done";
 import { ChatStateContext } from "../../../pages/ChatApp";
 
 const SingleMessageUser = ({ msg }) => {
-  const { chatState, setChatState, socket } = useContext(ChatStateContext);
+  const { socket } = useContext(ChatStateContext);
   const [readMsg, setReadMsg] = useState(false);
   useEffect(() => {
     socket.on("recieveMsgStatus", (msgId) => {

@@ -1,15 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
+
 import "../../../styles/chatApp/controller.css";
 
 import OnlineUsers from "./OnlineUsers";
 import SearchBar from "./SearchBar";
 import Chats from "./Chats";
+
 import { ChatStateContext } from "../../../pages/ChatApp";
 
 const Controller = () => {
   const username = sessionStorage.getItem("username");
   const { chatState, setChatState, socket, setChatList } =
     useContext(ChatStateContext);
+
   const [toggled, setToggled] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [resultUsers, setResultUsers] = useState([]);

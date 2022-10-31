@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
+
 import Avatar from "../../../images/vicky-hladynets-C8Ta0gwPbQg-unsplash.jpg";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
 import { ChatStateContext } from "../../../pages/ChatApp";
 
 const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
   const username = sessionStorage.getItem("username");
   const { socket, setChatState, chatState } = useContext(ChatStateContext);
+
   const [onlineUsers, setOnlineUsers] = useState([]);
   useEffect(() => {
     socket.emit("getOnlineUsers", "give online users");
@@ -61,15 +64,17 @@ const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
       }}
     >
       <h5>Online</h5>
-      <div className="controller__toggler">
+      <div
+        className="controller__toggler"
+        onClick={() => {
+          setToggled((t) => !t);
+        }}
+      >
         <KeyboardArrowDownIcon
           style={{
             cursor: "pointer",
             transition: "all 300ms ease-in-out",
             transform: `${toggled ? "rotate(-360deg)" : "rotate(180deg)"}`,
-          }}
-          onClick={() => {
-            setToggled((t) => !t);
           }}
         />
       </div>

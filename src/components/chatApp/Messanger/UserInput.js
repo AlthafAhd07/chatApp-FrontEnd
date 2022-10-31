@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import SendIcon from "@mui/icons-material/Send";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import MicIcon from "@mui/icons-material/Mic";
+
 import { ChatStateContext } from "../../../pages/ChatApp";
-import { v4 as uuidv4 } from "uuid";
 const UserInput = () => {
   const username = sessionStorage.getItem("username");
 

@@ -1,5 +1,7 @@
 import React from "react";
+
 import "../../../styles/chatApp/leftSideBar.css";
+
 import HomeIcon from "@mui/icons-material/Home";
 import ChatIcon from "@mui/icons-material/Chat";
 import ContactsIcon from "@mui/icons-material/Contacts";
