@@ -7,7 +7,7 @@ import UserInput from "./UserInput";
 import { ChatStateContext } from "../../../pages/ChatApp";
 
 const Main = () => {
-  const { chatState = "hi friends" } = useContext(ChatStateContext);
+  const { chatState } = useContext(ChatStateContext);
   const GlobalFocusRefCount = useRef(true);
   console.log(chatState);
   return (

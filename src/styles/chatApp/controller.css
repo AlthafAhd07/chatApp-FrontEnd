@@ -15,7 +15,7 @@
 @media only screen and (max-width: 650px) {
   .controller {
     width: 100%;
-    height: 600px !important;
+    height: 100% !important;
   }
 }
 .controller__heading {
@@ -169,10 +169,10 @@
 }
 @media only screen and (max-width: 650px) {
   .controller__Chats {
-    height: 310px;
+    height: calc(100% - 260px);
   }
   .controller__Chats[data-height="true"] {
-    height: 407px;
+    height: calc(100% - 163px);
   }
 }
 

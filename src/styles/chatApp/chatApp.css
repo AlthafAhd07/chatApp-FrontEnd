@@ -34,10 +34,16 @@
   }
 }
 @media only screen and (max-width: 650px) {
+  .chatApp {
+    width: 100%;
+    height: 100%;
+  }
   .chatApp__wrapper {
-    height: 600px !important;
-    width: 95%;
+    height: 100% !important;
+    width: 100%;
     overflow: hidden !important;
-    position: relative;
+    position: fixed;
+    bottom: 0;
+    border-radius: 0;
   }
 }

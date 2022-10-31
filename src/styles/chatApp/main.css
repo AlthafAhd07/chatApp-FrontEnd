@@ -16,19 +16,16 @@
   .main {
     position: absolute;
     width: 100% !important;
-    border-radius: 0 0 20px 20px;
-    height: 525px !important;
+    /* border-radius: 0 0 20px 20px; */
+    border-radius: 0;
+    height: calc(100% - 75px);
     top: 75px;
     opacity: 1;
     min-width: 203px;
     transform: translateX(105%);
   }
   .main[data-chatmain="true"] {
-    position: absolute;
-    width: 100% !important;
-    border-radius: 0 0 20px 20px;
-    height: 525px !important;
-    top: 75px;
+    border-radius: 0;
     opacity: 1;
     min-width: 203px;
     transform: translateX(0%);
