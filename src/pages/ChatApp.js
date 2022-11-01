@@ -21,7 +21,7 @@ const ChatApp = () => {
   //ws://chat-app-backend-althaf.herokuapp.com/
 
   useEffect(() => {
-    const newSocket = io("ws://localhost:3001/", {
+    const newSocket = io("ws://chat-app-backend-althaf.herokuapp.com/", {
       reconnectionDelayMax: 10000,
       auth: {
         username,
