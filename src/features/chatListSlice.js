@@ -1,13 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  chatList: "",
-  currentChat: "",
+  chatList: [],
+  currentChat: {},
 };
 
 const chatSlice = createSlice({
   name: "chatSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    getCurrentChat: () => {},
+    changeCurrentChat: () => {},
+  },
 });
 
 export default chatSlice.reducer;

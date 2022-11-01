@@ -29,6 +29,7 @@ const Chats = ({ toggled, FetchALLChats }) => {
   }, [chatState]);
 
   useEffect(() => {
+    if (!socket) return;
     socket.on("updateChatList", ({ conversationId, message }) => {
       setChatList((old) => {
         if (!!old.find((i) => i._id === conversationId)) {

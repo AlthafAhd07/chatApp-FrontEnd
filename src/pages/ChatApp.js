@@ -1,4 +1,4 @@
-import { createContext, useRef, useState } from "react";
+import { createContext, useEffect, useMemo, useRef, useState } from "react";
 
 import Controller from "../components/chatApp/Controller/Controller";
 import Main from "../components/chatApp/Messanger/Main";
@@ -14,11 +14,14 @@ const ChatApp = () => {
   const username = sessionStorage.getItem("username");
   const [chatState, setChatState] = useState();
   const [chatList, setChatList] = useState([]);
+  const [onlineUsers, setOnlineUsers] = useState([]);
+  const [socket, setSocket] = useState("");
 
   //  using socket.io
+  //ws://chat-app-backend-althaf.herokuapp.com/
 
-  const socket = useRef(
-    io("ws://chat-app-backend-althaf.herokuapp.com/", {
+  useEffect(() => {
+    const newSocket = io("ws://localhost:3001/", {
       reconnectionDelayMax: 10000,
       auth: {
         username,
@@ -27,17 +30,22 @@ const ChatApp = () => {
         avatar:
           "https://res.cloudinary.com/davg6e0yh/image/upload/v1665244033/vicky-hladynets-C8Ta0gwPbQg-unsplash_b6odex.jpg",
       },
-    })
-  );
+    });
+    setSocket(newSocket);
+
+    return () => newSocket.close();
+  }, []);
 
   return (
     <ChatStateContext.Provider
       value={{
         chatState,
         setChatState,
-        socket: socket.current,
+        socket,
         chatList,
         setChatList,
+        onlineUsers,
+        setOnlineUsers,
       }}
     >
       <div className="chatApp">

@@ -7,28 +7,23 @@ import { ChatStateContext } from "../../../pages/ChatApp";
 
 const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
   const username = sessionStorage.getItem("username");
-  const { socket, setChatState, chatState } = useContext(ChatStateContext);
+  const { socket, setChatState, chatState, onlineUsers, setOnlineUsers } =
+    useContext(ChatStateContext);
 
-  const [onlineUsers, setOnlineUsers] = useState([]);
   useEffect(() => {
+    if (!socket) return;
+
     socket.emit("getOnlineUsers", "give online users");
-    socket.on(
-      "onlineusers",
-      (data) => {
-        setOnlineUsers(data);
-      },
-      [socket]
-    );
-    socket.on(
-      "updateOnline",
-      (data) => {
-        setOnlineUsers((old) => {
-          const filtered = old.filter((i) => i.username !== data.username);
-          return [data, ...filtered];
-        });
-      },
-      [socket]
-    );
+    socket.on("onlineusers", (data) => {
+      console.log(data);
+      setOnlineUsers(data);
+    });
+    socket.on("updateOnline", (data) => {
+      setOnlineUsers((old) => {
+        const filtered = old.filter((i) => i.username !== data.username);
+        return [data, ...filtered];
+      });
+    });
     socket.on("updateOffline", (data) => {
       setOnlineUsers((old) => old.filter((d) => d.username !== data));
     });

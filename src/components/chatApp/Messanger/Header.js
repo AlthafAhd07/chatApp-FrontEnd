@@ -10,11 +10,13 @@ import { ChatStateContext } from "../../../pages/ChatApp";
 
 const Header = () => {
   const username = sessionStorage.getItem("username");
-  const { chatState, socket, setChatState } = useContext(ChatStateContext);
+  const { chatState, socket, setChatState, onlineUsers } =
+    useContext(ChatStateContext);
 
   const opponent = chatState?.opponentUserData;
 
   const [typing, setTyping] = useState(false);
+  const [opponetOnline, setOpponetOnline] = useState(opponent?.online[0]);
 
   function diff_minutes(opponentOnlineTIme) {
     var diff = (new Date().getTime() - opponentOnlineTIme.getTime()) / 1000;
@@ -69,6 +71,15 @@ const Header = () => {
     });
   }, [socket]);
 
+  useEffect(() => {
+    if (!!onlineUsers.find((i) => i.username === opponent?.username)) {
+      setOpponetOnline("true");
+    }
+    return () => {
+      setOpponetOnline("false");
+    };
+  }, [onlineUsers]);
+
   return (
     <div className="main__header">
       <div className="main__headerWrapper">
@@ -82,7 +93,7 @@ const Header = () => {
 
             <span>
               {!typing &&
-                (opponent?.online[0] === "true"
+                (opponetOnline === "true"
                   ? "Online"
                   : `Offline . Last seen ${lastSeen}`)}
               {typing && "Typing..."}
