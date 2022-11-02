@@ -7,11 +7,11 @@ import SearchBar from "./SearchBar";
 import Chats from "./Chats";
 
 import { ChatStateContext } from "../../../pages/ChatApp";
+import socket from "../../../socket";
 
 const Controller = () => {
   const username = sessionStorage.getItem("username");
-  const { chatState, setChatState, socket, setChatList } =
-    useContext(ChatStateContext);
+  const { chatState, setChatState, setChatList } = useContext(ChatStateContext);
 
   const [toggled, setToggled] = useState(false);
   const [searchInput, setSearchInput] = useState("");

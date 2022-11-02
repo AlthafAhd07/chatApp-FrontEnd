@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { ChatStateContext } from "../../../pages/ChatApp";
+import socket from "../../../socket";
 
 const SingleMessageOpponent = ({
   msg,
@@ -8,7 +9,7 @@ const SingleMessageOpponent = ({
   unReadMsgFocusRef,
 }) => {
   const username = sessionStorage.getItem("username");
-  const { socket, chatState, setChatList } = useContext(ChatStateContext);
+  const { chatState, setChatList } = useContext(ChatStateContext);
   const ref = useRef();
 
   const updateMsgStatus = () => {

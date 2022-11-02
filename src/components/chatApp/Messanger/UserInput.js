@@ -9,10 +9,11 @@ import Picker from "@emoji-mart/react";
 import MicIcon from "@mui/icons-material/Mic";
 
 import { ChatStateContext } from "../../../pages/ChatApp";
+import socket from "../../../socket";
 const UserInput = () => {
   const username = sessionStorage.getItem("username");
 
-  const { chatState, setChatState, socket } = useContext(ChatStateContext);
+  const { chatState, setChatState } = useContext(ChatStateContext);
   const [showEmoji, setShowEmoji] = useState(false);
   const [message, setMessage] = useState("");
   const inpFocusRef = useRef();

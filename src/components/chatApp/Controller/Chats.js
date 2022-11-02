@@ -5,9 +5,10 @@ import DoneAllIcon from "@mui/icons-material/DoneAll";
 import DoneIcon from "@mui/icons-material/Done";
 
 import { ChatStateContext } from "../../../pages/ChatApp";
+import socket from "../../../socket";
 const Chats = ({ toggled, FetchALLChats }) => {
   const username = sessionStorage.getItem("username");
-  const { chatState, setChatState, socket, chatList, setChatList } =
+  const { chatState, setChatState, chatList, setChatList } =
     useContext(ChatStateContext);
 
   useEffect(() => {

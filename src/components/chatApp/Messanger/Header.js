@@ -7,11 +7,11 @@ import profilePic from "../../../images/vicky-hladynets-C8Ta0gwPbQg-unsplash.jpg
 import { ReactComponent as BakcIcon } from "../../../images/thin-arrow-left-icon.svg";
 
 import { ChatStateContext } from "../../../pages/ChatApp";
+import socket from "../../../socket";
 
 const Header = () => {
   const username = sessionStorage.getItem("username");
-  const { chatState, socket, setChatState, onlineUsers } =
-    useContext(ChatStateContext);
+  const { chatState, setChatState, onlineUsers } = useContext(ChatStateContext);
 
   const opponent = chatState?.opponentUserData;
 

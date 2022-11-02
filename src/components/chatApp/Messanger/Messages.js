@@ -3,8 +3,9 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { ChatStateContext } from "../../../pages/ChatApp";
 import SingleMessageUser from "./SingleMessageUser";
 import SingleMessageOpponent from "./SingleMessageOpponent";
+import socket from "../../../socket";
 const Messages = ({ GlobalFocusRefCount }) => {
-  const { chatState, setChatState, socket } = useContext(ChatStateContext);
+  const { chatState, setChatState } = useContext(ChatStateContext);
   const username = sessionStorage.getItem("username");
   let messageView = useRef(null);
   const ReadMsgs = useRef([]);

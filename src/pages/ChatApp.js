@@ -6,7 +6,7 @@ import RightSideBar from "../components/chatApp/RightSidebar/RightSideBar";
 import LeftSideBar from "../components/chatApp/LeftSideBar/LeftSideBar";
 import "../styles/chatApp/chatApp.css";
 
-import { io } from "socket.io-client";
+import socket from "../socket";
 
 export const ChatStateContext = createContext();
 
@@ -15,25 +15,16 @@ const ChatApp = () => {
   const [chatState, setChatState] = useState();
   const [chatList, setChatList] = useState([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
-  const [socket, setSocket] = useState("");
 
   //  using socket.io
   //ws://chat-app-backend-althaf.herokuapp.com/
 
   useEffect(() => {
-    const newSocket = io("ws://chat-app-backend-althaf.herokuapp.com/", {
-      reconnectionDelayMax: 10000,
-      auth: {
-        username,
-      },
-      query: {
-        avatar:
-          "https://res.cloudinary.com/davg6e0yh/image/upload/v1665244033/vicky-hladynets-C8Ta0gwPbQg-unsplash_b6odex.jpg",
-      },
-    });
-    setSocket(newSocket);
+    socket.auth = { username };
 
-    return () => newSocket.close();
+    socket.connect();
+
+    return () => socket.close();
   }, []);
 
   return (
@@ -41,7 +32,6 @@ const ChatApp = () => {
       value={{
         chatState,
         setChatState,
-        socket,
         chatList,
         setChatList,
         onlineUsers,

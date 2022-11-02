@@ -4,10 +4,11 @@ import Avatar from "../../../images/vicky-hladynets-C8Ta0gwPbQg-unsplash.jpg";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import { ChatStateContext } from "../../../pages/ChatApp";
+import socket from "../../../socket";
 
 const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
   const username = sessionStorage.getItem("username");
-  const { socket, setChatState, chatState, onlineUsers, setOnlineUsers } =
+  const { setChatState, chatState, onlineUsers, setOnlineUsers } =
     useContext(ChatStateContext);
 
   useEffect(() => {
