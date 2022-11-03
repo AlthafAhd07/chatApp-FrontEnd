@@ -28,7 +28,7 @@ const ChatApp = () => {
     }
     async function getRefreshToken() {
       try {
-        const res = await axios.get("api/refresh_token");
+        const res = await axios.get("/api/refresh_token");
         setauthUser(res.data);
       } catch (error) {
         localStorage.setItem("logged", "false");
