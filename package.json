@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://chat-app-backend-althaf.herokuapp.com",
   "dependencies": {
     "@emoji-mart/data": "^1.0.6",
     "@emoji-mart/react": "^1.0.1",
