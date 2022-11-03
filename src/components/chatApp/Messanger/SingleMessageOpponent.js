@@ -31,7 +31,7 @@ const SingleMessageOpponent = ({
       });
     });
 
-    fetch("https://chat-app-backend-althaf.herokuapp.com/api/updateMsgStatus", {
+    fetch("https://chatapp-backend-althaf.herokuapp.com/api/updateMsgStatus", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

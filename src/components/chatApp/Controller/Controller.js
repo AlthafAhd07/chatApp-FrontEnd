@@ -19,7 +19,7 @@ const Controller = () => {
   //chat-app-backend-althaf.herokuapp.com/
 
   const FetchALLChats = () => {
-    fetch("https://chat-app-backend-althaf.herokuapp.com/api/getAllUserChats", {
+    fetch("https://chatapp-backend-althaf.herokuapp.com/api/getAllUserChats", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ const Controller = () => {
   useEffect(() => {
     if (!searchInput) return;
     fetch(
-      `https://chat-app-backend-althaf.herokuapp.com/api/searchUser?username=${searchInput}&currentUser=${authUser?.user?.username}`
+      `https://chatapp-backend-althaf.herokuapp.com/api/searchUser?username=${searchInput}&currentUser=${authUser?.user?.username}`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -44,7 +44,7 @@ const Controller = () => {
       });
   }, [searchInput, authUser?.user?.username]);
   function selectChat(opponent) {
-    fetch("https://chat-app-backend-althaf.herokuapp.com/api/specificChat", {
+    fetch("https://chatapp-backend-althaf.herokuapp.com/api/specificChat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

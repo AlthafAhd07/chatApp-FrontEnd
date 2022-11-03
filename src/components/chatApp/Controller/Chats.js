@@ -62,7 +62,7 @@ const Chats = ({ toggled, FetchALLChats }) => {
   }, [authUser]);
 
   function selectChat(opponent) {
-    fetch("https://chat-app-backend-althaf.herokuapp.com/api/specificChat", {
+    fetch("https://chatapp-backend-althaf.herokuapp.com/api/specificChat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -53,7 +53,7 @@ const UserInput = () => {
       date: new Date().toLocaleDateString("fr-CA"),
       status: "sent",
     };
-    fetch("https://chat-app-backend-althaf.herokuapp.com/api/updateMessage", {
+    fetch("https://chatapp-backend-althaf.herokuapp.com/api/updateMessage", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

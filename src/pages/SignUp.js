@@ -39,7 +39,7 @@ const Register = () => {
       return;
     }
     try {
-      const res = await postAPI("register", {
+      await postAPI("register", {
         name: userData.username,
         account: userData.email,
         password: userData.password,

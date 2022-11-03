@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import { postAPI } from "../utils/fetchData";
@@ -21,12 +21,12 @@ const Login = () => {
       return;
     }
     try {
-      const res = await postAPI("login", { account: email, password });
+      await postAPI("login", { account: email, password });
 
       localStorage.setItem("logged", "true");
       navigate("/");
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error);
     }
   }
 

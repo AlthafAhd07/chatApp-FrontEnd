@@ -1,32 +1,13 @@
 import axios from "axios";
 
-export const getAPI = async (url, token) => {
-  const res = await axios.get(
-    `https://chat-app-backend-althaf.herokuapp.com/api/${url}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        Accept: "application/json",
-        Authorization: token,
-      },
-    }
-  );
-  return res;
-};
-
+// https://chatapp-backend-althaf.herokuapp.com
 export const postAPI = async (url, post, token) => {
-  const res = await axios.post(
-    `https://chat-app-backend-althaf.herokuapp.com/api/${url}`,
-    post,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        Accept: "application/json",
-        Authorization: token,
-      },
-    }
-  );
+  const res = await axios.post(`api/${url}`, post, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: token,
+    },
+  });
   return res;
 };

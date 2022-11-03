@@ -29,7 +29,7 @@ const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
   }, [socket]);
   function selectChat(opponent) {
     if (!chatState?.Chatname.includes(opponent)) {
-      fetch("https://chat-app-backend-althaf.herokuapp.com/api/specificChat", {
+      fetch("https://chatapp-backend-althaf.herokuapp.com/api/specificChat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
