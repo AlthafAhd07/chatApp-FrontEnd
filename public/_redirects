@@ -1,2 +1,3 @@
-/api/* https://chatapp-backend-althaf.herokuapp.com/:splat 200
-/* /index.html 
+/api/*  https://chatapp-backend-althaf.herokuapp.com/api/:splat  200
+
+/*    /index.html   200
