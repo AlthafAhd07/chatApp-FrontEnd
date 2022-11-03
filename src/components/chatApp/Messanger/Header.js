@@ -10,8 +10,8 @@ import { ChatStateContext } from "../../../pages/ChatApp";
 import socket from "../../../socket";
 
 const Header = () => {
-  const username = sessionStorage.getItem("username");
-  const { chatState, setChatState, onlineUsers } = useContext(ChatStateContext);
+  const { chatState, setChatState, onlineUsers, authUser } =
+    useContext(ChatStateContext);
 
   const opponent = chatState?.opponentUserData;
 
@@ -37,20 +37,8 @@ const Header = () => {
         };
       });
     });
-    // socket.on("updateOnline", () => {
-    //   if (chatState.opponentUserData.online[0] === "false") {
-    //     setChatState((old) => {
-    //       return {
-    //         ...old,
-    //         opponentUserData: {
-    //           ...old.opponentUserData,
-    //           online: ["true", "now"],
-    //         },
-    //       };
-    //     });
-    //   }
-    // });
   }, [socket]);
+
   let lastSeen;
   if (timeDiff > 60) {
     let hour = Math.round(timeDiff / 60);
@@ -65,7 +53,7 @@ const Header = () => {
 
   useEffect(() => {
     socket.on("receive_typer", (typingUser) => {
-      if (typingUser.username !== username) {
+      if (typingUser.username !== authUser?.user?.username) {
         setTyping(typingUser.typing);
       }
     });
@@ -78,7 +66,7 @@ const Header = () => {
     return () => {
       setOpponetOnline("false");
     };
-  }, [onlineUsers]);
+  }, [onlineUsers, chatState]);
 
   return (
     <div className="main__header">

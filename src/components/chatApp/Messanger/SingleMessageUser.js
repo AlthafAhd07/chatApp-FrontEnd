@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import DoneIcon from "@mui/icons-material/Done";
-import { ChatStateContext } from "../../../pages/ChatApp";
 import socket from "../../../socket";
 
 const SingleMessageUser = ({ msg }) => {

@@ -11,9 +11,7 @@ import MicIcon from "@mui/icons-material/Mic";
 import { ChatStateContext } from "../../../pages/ChatApp";
 import socket from "../../../socket";
 const UserInput = () => {
-  const username = sessionStorage.getItem("username");
-
-  const { chatState, setChatState } = useContext(ChatStateContext);
+  const { chatState, setChatState, authUser } = useContext(ChatStateContext);
   const [showEmoji, setShowEmoji] = useState(false);
   const [message, setMessage] = useState("");
   const inpFocusRef = useRef();
@@ -21,7 +19,7 @@ const UserInput = () => {
   const handleOnChange = (event) => {
     setMessage(event.target.value);
     socket.emit("sent_typer", {
-      typingUser: { username, typing: true },
+      typingUser: { username: authUser?.user?.username, typing: true },
       room: chatState._id + "123",
     });
   };
@@ -30,7 +28,7 @@ const UserInput = () => {
     const timeoutId = setTimeout(() => {
       // this function will run after user finished typing
       socket.emit("sent_typer", {
-        typingUser: { username, typing: false },
+        typingUser: { username: authUser?.user?.username, typing: false },
         room: chatState._id + "123",
       });
     }, 500);
@@ -45,7 +43,7 @@ const UserInput = () => {
     }
     const newSendMsg = {
       id: uuidv4(),
-      from: username,
+      from: authUser?.user?.username,
       message: message,
       time: new Date().toLocaleString("en-US", {
         hour: "numeric",
@@ -62,15 +60,19 @@ const UserInput = () => {
         Accept: "application/json",
       },
       body: JSON.stringify({
-        username,
-        opponent: chatState?.participant.filter((v) => v !== username)[0],
+        username: authUser?.user?.username,
+        opponent: chatState?.participant.filter(
+          (v) => v !== authUser?.user?.username
+        )[0],
         newMsg: newSendMsg,
       }),
     }).then((res) => res.json());
     socket.emit("send_message", {
       room: chatState._id,
       message: newSendMsg,
-      receiver: chatState.participant.filter((i) => i !== username)[0],
+      receiver: chatState.participant.filter(
+        (i) => i !== authUser?.user?.username
+      )[0],
       conversationId: chatState._id,
     });
     setMessage("");

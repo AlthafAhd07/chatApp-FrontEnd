@@ -10,13 +10,14 @@ import { ChatStateContext } from "../../../pages/ChatApp";
 import socket from "../../../socket";
 
 const Controller = () => {
-  const username = sessionStorage.getItem("username");
-  const { chatState, setChatState, setChatList } = useContext(ChatStateContext);
+  const { chatState, setChatState, setChatList, authUser } =
+    useContext(ChatStateContext);
 
   const [toggled, setToggled] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [resultUsers, setResultUsers] = useState([]);
   //chat-app-backend-althaf.herokuapp.com/
+
   const FetchALLChats = () => {
     fetch("https://chat-app-backend-althaf.herokuapp.com/api/getAllUserChats", {
       method: "POST",
@@ -24,7 +25,7 @@ const Controller = () => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify({ username }),
+      body: JSON.stringify({ username: authUser.user.username }),
     })
       .then((res) => res.json())
       .then((res) => {
@@ -35,13 +36,13 @@ const Controller = () => {
   useEffect(() => {
     if (!searchInput) return;
     fetch(
-      `https://chat-app-backend-althaf.herokuapp.com/api/searchUser?username=${searchInput}&currentUser=${username}`
+      `https://chat-app-backend-althaf.herokuapp.com/api/searchUser?username=${searchInput}&currentUser=${authUser?.user?.username}`
     )
       .then((res) => res.json())
       .then((res) => {
         setResultUsers(res.msg);
       });
-  }, [searchInput, username]);
+  }, [searchInput, authUser?.user?.username]);
   function selectChat(opponent) {
     fetch("https://chat-app-backend-althaf.herokuapp.com/api/specificChat", {
       method: "POST",
@@ -49,12 +50,12 @@ const Controller = () => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify({ username, opponent }),
+      body: JSON.stringify({ username: authUser?.user?.username, opponent }),
     })
       .then((res) => res.json())
       .then((res) => {
         setChatState(res.msg);
-        FetchALLChats();
+        // FetchALLChats();
         if (chatState) {
           socket.emit("leaveRoom", chatState._id);
         }

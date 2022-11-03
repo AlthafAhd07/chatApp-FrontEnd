@@ -7,8 +7,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import { ChatStateContext } from "../../../pages/ChatApp";
 import socket from "../../../socket";
 const Chats = ({ toggled, FetchALLChats }) => {
-  const username = sessionStorage.getItem("username");
-  const { chatState, setChatState, chatList, setChatList } =
+  const { chatState, setChatState, chatList, setChatList, authUser } =
     useContext(ChatStateContext);
 
   useEffect(() => {
@@ -41,7 +40,8 @@ const Chats = ({ toggled, FetchALLChats }) => {
                 messages: [message],
                 unReadMsgs: {
                   ...item.unReadMsgs,
-                  [username]: item.unReadMsgs[username] + 1,
+                  [authUser?.user?.username]:
+                    item.unReadMsgs[authUser?.user?.username] + 1,
                 },
               };
             } else {
@@ -56,8 +56,10 @@ const Chats = ({ toggled, FetchALLChats }) => {
   }, [socket]);
 
   useEffect(() => {
-    FetchALLChats();
-  }, []);
+    if (authUser) {
+      FetchALLChats();
+    }
+  }, [authUser]);
 
   function selectChat(opponent) {
     fetch("https://chat-app-backend-althaf.herokuapp.com/api/specificChat", {
@@ -66,7 +68,7 @@ const Chats = ({ toggled, FetchALLChats }) => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify({ username, opponent }),
+      body: JSON.stringify({ username: authUser?.user?.username, opponent }),
     })
       .then((res) => res.json())
       .then((res) => {
@@ -89,8 +91,12 @@ const Chats = ({ toggled, FetchALLChats }) => {
       <h5>Messages</h5>
       <div className="controller__ChatsList">
         {chatList?.map((chat) => {
-          const opponetUser = chat.participant.filter((v) => v !== username)[0];
-          let unReadMsgCout = chat.unReadMsgs[username];
+          const opponetUser = chat.participant.filter(
+            (v) => v !== authUser?.user?.username
+          )[0];
+          let unReadMsgCout = chat.unReadMsgs[authUser?.user?.username];
+          console.log(unReadMsgCout);
+
           return (
             <div
               className="controller__singleChat"
@@ -101,9 +107,15 @@ const Chats = ({ toggled, FetchALLChats }) => {
             >
               <div className="controller__singleChatProfile"></div>
               <div className="controller__singleChatName">
-                <h3>{chat.participant.filter((v) => v !== username)}</h3>
+                <h3>
+                  {
+                    chat.participant.filter(
+                      (v) => v !== authUser?.user?.username
+                    )[0]
+                  }
+                </h3>
                 <div>
-                  {chat?.messages[0]?.from === username && (
+                  {chat?.messages[0]?.from === authUser?.user?.username && (
                     <span className="controller__lastChatStatus">
                       {chat?.messages[0]?.status === "sent" && <DoneIcon />}
                       {(chat?.messages[0]?.status === "delivered" ||
@@ -123,7 +135,9 @@ const Chats = ({ toggled, FetchALLChats }) => {
                   <span className="controller__lastChat">
                     {chat?.messages[0]?.message ||
                       `No messages Yet with ${
-                        chat.participant.filter((v) => v !== username)[0]
+                        chat.participant.filter(
+                          (v) => v !== authUser?.user?.username
+                        )[0]
                       }`}
                   </span>
                 </div>

@@ -8,8 +8,7 @@ const SingleMessageOpponent = ({
   GlobalFocusRefCount,
   unReadMsgFocusRef,
 }) => {
-  const username = sessionStorage.getItem("username");
-  const { chatState, setChatList } = useContext(ChatStateContext);
+  const { chatState, setChatList, authUser } = useContext(ChatStateContext);
   const ref = useRef();
 
   const updateMsgStatus = () => {
@@ -20,9 +19,9 @@ const SingleMessageOpponent = ({
             ...item,
             unReadMsgs: {
               ...item.unReadMsgs,
-              [username]:
-                item.unReadMsgs[username] > 0
-                  ? item.unReadMsgs[username] - 1
+              [authUser?.user?.username]:
+                item.unReadMsgs[authUser?.user?.username] > 0
+                  ? item.unReadMsgs[authUser?.user?.username] - 1
                   : 0,
             },
           };
@@ -41,7 +40,7 @@ const SingleMessageOpponent = ({
       body: JSON.stringify({
         conversationId: chatState._id,
         msgId: msg.id,
-        username,
+        username: authUser?.user?.username,
       }),
     }).then((res) => {});
   };

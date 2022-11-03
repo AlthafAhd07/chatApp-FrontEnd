@@ -7,8 +7,7 @@ import { ChatStateContext } from "../../../pages/ChatApp";
 import socket from "../../../socket";
 
 const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
-  const username = sessionStorage.getItem("username");
-  const { setChatState, chatState, onlineUsers, setOnlineUsers } =
+  const { setChatState, chatState, onlineUsers, setOnlineUsers, authUser } =
     useContext(ChatStateContext);
 
   useEffect(() => {
@@ -16,7 +15,6 @@ const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
 
     socket.emit("getOnlineUsers", "give online users");
     socket.on("onlineusers", (data) => {
-      console.log(data);
       setOnlineUsers(data);
     });
     socket.on("updateOnline", (data) => {
@@ -37,7 +35,7 @@ const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({ username, opponent }),
+        body: JSON.stringify({ usrname: authUser?.user?.username, opponent }),
       })
         .then((res) => res.json())
         .then((res) => {

@@ -1,4 +1,11 @@
-import { createContext, useEffect, useMemo, useRef, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import Controller from "../components/chatApp/Controller/Controller";
 import Main from "../components/chatApp/Messanger/Main";
@@ -7,29 +14,51 @@ import LeftSideBar from "../components/chatApp/LeftSideBar/LeftSideBar";
 import "../styles/chatApp/chatApp.css";
 
 import socket from "../socket";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const ChatStateContext = createContext();
 
 const ChatApp = () => {
-  const username = sessionStorage.getItem("username");
+  const [authUser, setauthUser] = useState("");
   const [chatState, setChatState] = useState();
   const [chatList, setChatList] = useState([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
-
   //  using socket.io
   //ws://chat-app-backend-althaf.herokuapp.com/
+  const navigate = useNavigate();
 
   useEffect(() => {
-    socket.auth = { username };
+    const logged = localStorage.getItem("logged");
+    if (logged !== "true") {
+      navigate("/login");
+      return;
+    }
+    async function getRefreshToken() {
+      try {
+        const res = await axios.get(`api/refresh_token`);
+        setauthUser(res.data);
+      } catch (error) {
+        localStorage.setItem("logged", "false");
+        return navigate("/login");
+      }
+    }
+    getRefreshToken();
+  }, []);
 
-    socket.connect();
+  useEffect(() => {
+    if (!!authUser) {
+      socket.auth = { token: authUser.access_token };
+      socket.connect();
+    }
 
     return () => socket.close();
-  }, []);
+  }, [authUser]);
 
   return (
     <ChatStateContext.Provider
       value={{
+        authUser,
         chatState,
         setChatState,
         chatList,

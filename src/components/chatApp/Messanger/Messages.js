@@ -5,8 +5,7 @@ import SingleMessageUser from "./SingleMessageUser";
 import SingleMessageOpponent from "./SingleMessageOpponent";
 import socket from "../../../socket";
 const Messages = ({ GlobalFocusRefCount }) => {
-  const { chatState, setChatState } = useContext(ChatStateContext);
-  const username = sessionStorage.getItem("username");
+  const { chatState, setChatState, authUser } = useContext(ChatStateContext);
   let messageView = useRef(null);
   const ReadMsgs = useRef([]);
   const unReadMsgFocusRef = useRef();
@@ -71,7 +70,7 @@ const Messages = ({ GlobalFocusRefCount }) => {
       <div className="main__specificDateMsg">
         <section className="main__msgDate">October 05</section>
         {chatState?.messages?.map((msg) => {
-          if (username === msg.from) {
+          if (authUser?.user?.username === msg.from) {
             return <SingleMessageUser msg={msg} key={msg.id} />;
           } else {
             return (
