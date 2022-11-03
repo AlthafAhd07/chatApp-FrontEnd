@@ -6,6 +6,7 @@ export const getAPI = async (url, token) => {
     {
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
         Accept: "application/json",
         Authorization: token,
       },
@@ -21,6 +22,7 @@ export const postAPI = async (url, post, token) => {
     {
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
         Accept: "application/json",
         Authorization: token,
       },
