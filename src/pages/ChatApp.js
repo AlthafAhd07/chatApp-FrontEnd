@@ -41,7 +41,7 @@ const ChatApp = () => {
 
   useEffect(() => {
     if (!!authUser) {
-      socket.auth = { token: authUser.access_token };
+      socket.auth = { token: authUser?.access_token };
       socket.connect();
     }
 

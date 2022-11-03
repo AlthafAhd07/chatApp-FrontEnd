@@ -25,7 +25,7 @@ const Controller = () => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify({ username: authUser.user.username }),
+      body: JSON.stringify({ username: authUser?.user?.username }),
     })
       .then((res) => res.json())
       .then((res) => {
