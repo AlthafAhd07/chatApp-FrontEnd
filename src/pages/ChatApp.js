@@ -28,9 +28,9 @@ const ChatApp = () => {
     }
     async function getRefreshToken() {
       try {
-        const res = await axios.get(
-          "https://chatapp-backend-althaf.herokuapp.com/api/refresh_token"
-        );
+        const res = await axios.get("/api/refresh_token", {
+          withCredentials: true,
+        });
         setauthUser(res.data);
       } catch (error) {
         localStorage.setItem("logged", "false");
