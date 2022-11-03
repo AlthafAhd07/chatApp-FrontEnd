@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { postAPI } from "../utils/fetchData";
 
 import "../styles/auth/auth.css";
-import { ChatStateContext } from "./ChatApp";
 
 const Register = () => {
   const [userData, setUserData] = useState({

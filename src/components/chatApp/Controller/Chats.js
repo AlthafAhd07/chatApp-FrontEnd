@@ -95,7 +95,6 @@ const Chats = ({ toggled, FetchALLChats }) => {
             (v) => v !== authUser?.user?.username
           )[0];
           let unReadMsgCout = chat.unReadMsgs[authUser?.user?.username];
-          console.log(unReadMsgCout);
 
           return (
             <div
