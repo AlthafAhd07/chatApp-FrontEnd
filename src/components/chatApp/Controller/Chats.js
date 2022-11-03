@@ -31,29 +31,53 @@ const Chats = ({ toggled, FetchALLChats }) => {
   useEffect(() => {
     if (!socket) return;
     socket.on("updateChatList", ({ conversationId, message }) => {
-      setChatList((old) => {
-        if (!!old.find((i) => i._id === conversationId)) {
-          return old.map((item) => {
-            if (item._id === conversationId) {
-              return {
-                ...item,
-                messages: [message],
-                unReadMsgs: {
-                  ...item.unReadMsgs,
-                  [authUser?.user?.username]:
-                    item.unReadMsgs[authUser?.user?.username] + 1,
-                },
-              };
-            } else {
-              return item;
-            }
-          });
+      console.log(conversationId, message);
+      if (!!chatList) {
+        if (!!chatList.find((i) => i._id === conversationId)) {
+          setChatList((old) =>
+            old.map((item) => {
+              if (item._id === conversationId) {
+                return {
+                  ...item,
+                  messages: [message],
+                  unReadMsgs: {
+                    ...item.unReadMsgs,
+                    [authUser?.user?.username]:
+                      item.unReadMsgs[authUser?.user?.username] + 1,
+                  },
+                };
+              } else {
+                return item;
+              }
+            })
+          );
         } else {
           FetchALLChats();
         }
-      });
+      }
+      // setChatList((old) => {
+      //   if (!!old.find((i) => i._id === conversationId)) {
+      //     return old.map((item) => {
+      //       if (item._id === conversationId) {
+      //         return {
+      //           ...item,
+      //           messages: [message],
+      //           unReadMsgs: {
+      //             ...item.unReadMsgs,
+      //             [authUser?.user?.username]:
+      //               item.unReadMsgs[authUser?.user?.username] + 1,
+      //           },
+      //         };
+      //       } else {
+      //         return item;
+      //       }
+      //     });
+      //   } else {
+      //     FetchALLChats();
+      //   }
+      // });
     });
-  }, [socket]);
+  }, [socket, authUser]);
 
   useEffect(() => {
     if (authUser) {
@@ -95,7 +119,7 @@ const Chats = ({ toggled, FetchALLChats }) => {
             (v) => v !== authUser?.user?.username
           )[0];
           let unReadMsgCout = chat.unReadMsgs[authUser?.user?.username];
-
+          console.log(chat);
           return (
             <div
               className="controller__singleChat"

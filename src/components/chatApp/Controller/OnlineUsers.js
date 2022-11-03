@@ -35,7 +35,7 @@ const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({ usrname: authUser?.user?.username, opponent }),
+        body: JSON.stringify({ username: authUser?.user?.username, opponent }),
       })
         .then((res) => res.json())
         .then((res) => {

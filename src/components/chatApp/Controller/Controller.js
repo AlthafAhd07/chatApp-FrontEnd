@@ -55,7 +55,7 @@ const Controller = () => {
       .then((res) => res.json())
       .then((res) => {
         setChatState(res.msg);
-        // FetchALLChats();
+        FetchALLChats();
         if (chatState) {
           socket.emit("leaveRoom", chatState._id);
         }

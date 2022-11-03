@@ -48,5 +48,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://chatapp-backend-althaf.herokuapp.com/"
+  "proxy": "http://localhost:3001"
 }
