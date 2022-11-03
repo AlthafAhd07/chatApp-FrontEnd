@@ -19,7 +19,6 @@ const Controller = () => {
   //chat-app-backend-althaf.herokuapp.com/
 
   const FetchALLChats = () => {
-    console.log(authUser?.user?.username);
     fetch("https://chat-app-backend-althaf.herokuapp.com/api/getAllUserChats", {
       method: "POST",
       headers: {

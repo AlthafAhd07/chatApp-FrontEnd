@@ -17,8 +17,7 @@ const ChatApp = () => {
   const [chatState, setChatState] = useState();
   const [chatList, setChatList] = useState([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
-  //  using socket.io
-  //ws://chat-app-backend-althaf.herokuapp.com/
+
   const navigate = useNavigate();
 
   useEffect(() => {
