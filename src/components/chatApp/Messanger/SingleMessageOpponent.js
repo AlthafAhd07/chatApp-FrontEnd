@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { ChatStateContext } from "../../../pages/ChatApp";
 import socket from "../../../socket";
+import { CheckTokenEx } from "../../../utils/checkTockenExpiration";
 
 const SingleMessageOpponent = ({
   msg,
@@ -11,7 +12,7 @@ const SingleMessageOpponent = ({
   const { chatState, setChatList, authUser } = useContext(ChatStateContext);
   const ref = useRef();
 
-  const updateMsgStatus = () => {
+  const updateMsgStatus = async () => {
     setChatList((old) => {
       return old.map((item) => {
         if (item._id === chatState._id) {
@@ -30,13 +31,13 @@ const SingleMessageOpponent = ({
         }
       });
     });
-
+    const accessToken = await CheckTokenEx(authUser?.access_token);
     fetch("https://chatapp-backend-althaf.herokuapp.com/api/updateMsgStatus", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: authUser?.access_token,
+        Authorization: accessToken,
       },
       body: JSON.stringify({
         conversationId: chatState._id,

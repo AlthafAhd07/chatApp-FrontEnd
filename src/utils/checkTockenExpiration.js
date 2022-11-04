@@ -8,7 +8,7 @@ export const CheckTokenEx = async (token) => {
 
   // jwt expire o illayo endu check panra
   // expire illatti return panra  ,, expire enda request ondu anuppura access token a edukka
-  if (decoded.exp >= Date.now() / 1000) return;
+  if (decoded.exp >= Date.now() / 1000) return token;
 
   const res = await axios.get("/api/refresh_token");
 

@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 
 import Avatar from "../../../images/vicky-hladynets-C8Ta0gwPbQg-unsplash.jpg";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import { ChatStateContext } from "../../../pages/ChatApp";
 import socket from "../../../socket";
+import { CheckTokenEx } from "../../../utils/checkTockenExpiration";
 
 const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
   const { setChatState, chatState, onlineUsers, setOnlineUsers, authUser } =
@@ -27,14 +28,16 @@ const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
       setOnlineUsers((old) => old.filter((d) => d.username !== data));
     });
   }, [socket]);
-  function selectChat(opponent) {
+  async function selectChat(opponent) {
     if (!chatState?.Chatname.includes(opponent)) {
+      const accessToken = await CheckTokenEx(authUser?.access_token);
+
       fetch("https://chatapp-backend-althaf.herokuapp.com/api/specificChat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: authUser?.access_token,
+          Authorization: accessToken,
         },
         body: JSON.stringify({ opponent }),
       })

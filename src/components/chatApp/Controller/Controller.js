@@ -8,6 +8,7 @@ import Chats from "./Chats";
 
 import { ChatStateContext } from "../../../pages/ChatApp";
 import socket from "../../../socket";
+import { CheckTokenEx } from "../../../utils/checkTockenExpiration";
 
 const Controller = () => {
   const { chatState, setChatState, setChatList, authUser } =
@@ -18,13 +19,14 @@ const Controller = () => {
   const [resultUsers, setResultUsers] = useState([]);
   //chat-app-backend-althaf.herokuapp.com/
 
-  const FetchALLChats = () => {
+  const FetchALLChats = async () => {
+    const accessToken = await CheckTokenEx(authUser?.access_token);
     fetch("https://chatapp-backend-althaf.herokuapp.com/api/getAllUserChats", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: authUser?.access_token,
+        Authorization: accessToken,
       },
     })
       .then((res) => res.json())
@@ -43,13 +45,14 @@ const Controller = () => {
         setResultUsers(res.msg);
       });
   }, [searchInput, authUser?.user?.username]);
-  function selectChat(opponent) {
+  async function selectChat(opponent) {
+    const accessToken = await CheckTokenEx(authUser?.access_token);
     fetch("https://chatapp-backend-althaf.herokuapp.com/api/specificChat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: authUser?.access_token,
+        Authorization: accessToken,
       },
       body: JSON.stringify({ opponent }),
     })

@@ -10,6 +10,7 @@ import MicIcon from "@mui/icons-material/Mic";
 
 import { ChatStateContext } from "../../../pages/ChatApp";
 import socket from "../../../socket";
+import { CheckTokenEx } from "../../../utils/checkTockenExpiration";
 const UserInput = () => {
   const { chatState, setChatState, authUser } = useContext(ChatStateContext);
   const [showEmoji, setShowEmoji] = useState(false);
@@ -37,7 +38,7 @@ const UserInput = () => {
     };
   }, [message]);
 
-  function sendMsg() {
+  async function sendMsg() {
     if (!message) {
       return;
     }
@@ -53,12 +54,14 @@ const UserInput = () => {
       date: new Date().toLocaleDateString("fr-CA"),
       status: "sent",
     };
+    const accessToken = await CheckTokenEx(authUser?.access_token);
+
     fetch("https://chatapp-backend-althaf.herokuapp.com/api/updateMessage", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: authUser?.access_token,
+        Authorization: accessToken,
       },
       body: JSON.stringify({
         opponent: chatState?.participant.filter(

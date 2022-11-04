@@ -6,6 +6,7 @@ import DoneIcon from "@mui/icons-material/Done";
 
 import { ChatStateContext } from "../../../pages/ChatApp";
 import socket from "../../../socket";
+import { CheckTokenEx } from "../../../utils/checkTockenExpiration";
 const Chats = ({ toggled, FetchALLChats }) => {
   const { chatState, setChatState, chatList, setChatList, authUser } =
     useContext(ChatStateContext);
@@ -63,15 +64,16 @@ const Chats = ({ toggled, FetchALLChats }) => {
     }
   }, [authUser]);
 
-  function selectChat(opponent) {
+  async function selectChat(opponent) {
+    const accessToken = await CheckTokenEx(authUser?.access_token);
     fetch("https://chatapp-backend-althaf.herokuapp.com/api/specificChat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: authUser?.access_token,
+        Authorization: accessToken,
       },
-      body: JSON.stringify({ username: authUser?.user?.username, opponent }),
+      body: JSON.stringify({ opponent }),
     })
       .then((res) => res.json())
       .then((res) => {
