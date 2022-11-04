@@ -58,9 +58,9 @@ const UserInput = () => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: authUser?.access_token,
       },
       body: JSON.stringify({
-        username: authUser?.user?.username,
         opponent: chatState?.participant.filter(
           (v) => v !== authUser?.user?.username
         )[0],

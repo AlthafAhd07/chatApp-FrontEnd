@@ -36,11 +36,11 @@ const SingleMessageOpponent = ({
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: authUser?.access_token,
       },
       body: JSON.stringify({
         conversationId: chatState._id,
         msgId: msg.id,
-        username: authUser?.user?.username,
       }),
     }).then((res) => {});
   };

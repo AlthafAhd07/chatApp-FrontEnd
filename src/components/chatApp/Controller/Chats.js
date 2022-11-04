@@ -31,7 +31,6 @@ const Chats = ({ toggled, FetchALLChats }) => {
   useEffect(() => {
     if (!socket) return;
     socket.on("updateChatList", ({ conversationId, message }) => {
-      console.log(conversationId, message);
       if (!!chatList) {
         if (!!chatList.find((i) => i._id === conversationId)) {
           setChatList((old) =>
@@ -55,27 +54,6 @@ const Chats = ({ toggled, FetchALLChats }) => {
           FetchALLChats();
         }
       }
-      // setChatList((old) => {
-      //   if (!!old.find((i) => i._id === conversationId)) {
-      //     return old.map((item) => {
-      //       if (item._id === conversationId) {
-      //         return {
-      //           ...item,
-      //           messages: [message],
-      //           unReadMsgs: {
-      //             ...item.unReadMsgs,
-      //             [authUser?.user?.username]:
-      //               item.unReadMsgs[authUser?.user?.username] + 1,
-      //           },
-      //         };
-      //       } else {
-      //         return item;
-      //       }
-      //     });
-      //   } else {
-      //     FetchALLChats();
-      //   }
-      // });
     });
   }, [socket, authUser]);
 
@@ -91,6 +69,7 @@ const Chats = ({ toggled, FetchALLChats }) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: authUser?.access_token,
       },
       body: JSON.stringify({ username: authUser?.user?.username, opponent }),
     })

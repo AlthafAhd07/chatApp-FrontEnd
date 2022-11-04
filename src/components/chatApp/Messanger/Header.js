@@ -27,7 +27,7 @@ const Header = () => {
   let timeDiff = diff_minutes(new Date(opponent?.online[1]));
 
   // let timeDiff = diff_minutes(new Date(opponent?.online[1]));
-  console.log(timeDiff, opponent?.online[1]);
+
   useEffect(() => {
     socket.on("updateOffline", (data) => {
       setChatState((old) => {

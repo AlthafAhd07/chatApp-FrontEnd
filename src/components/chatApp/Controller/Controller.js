@@ -24,8 +24,8 @@ const Controller = () => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: authUser?.access_token,
       },
-      body: JSON.stringify({ username: authUser?.user?.username }),
     })
       .then((res) => res.json())
       .then((res) => {
@@ -49,8 +49,9 @@ const Controller = () => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: authUser?.access_token,
       },
-      body: JSON.stringify({ username: authUser?.user?.username, opponent }),
+      body: JSON.stringify({ opponent }),
     })
       .then((res) => res.json())
       .then((res) => {
