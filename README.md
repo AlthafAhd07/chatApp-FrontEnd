@@ -17,7 +17,9 @@ Features
 - Find Users by their username
 - Show the currently online users separately ( Only the users who are in your contact )
 
-## Fully Responsive for all devices.
+<br/>
+
+**Fully Responsive for all devices.**
 
 <br/>
 
@@ -31,7 +33,7 @@ To archive this I have used
 
 <br/>
 
-## This project was deployed on Netlify and Heroku.
+**This project was deployed on Netlify and Heroku.**
 
 <br/>
 
@@ -42,12 +44,10 @@ To archive this I have used
 
 <br/>
 
-## `Feel free to experience this website using` **ANY RANDOM** `email and password.`
+## `Feel free to experience this website using` **`ANY RANDOM`** `email and password.`
 
 <br/>
 
 Happy to hear your suggestions to improve this project 😊.
-
-<br/>
 
 ## Thank You.
