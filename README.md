@@ -1,10 +1,8 @@
 ### Live URL - https://chatapp-althaf.netlify.app/
 
-<br/>
-
 # This is a Chat app where you can send and receive messages in Real-Time.
 
-Features
+### Features
 
 - Real-time messages
 - Read unread message indicators
@@ -23,7 +21,7 @@ Features
 
 <br/>
 
-To archive this I have used
+### To archive this I have used
 
 > Frontend - React, Socket.io client
 
@@ -34,8 +32,6 @@ To archive this I have used
 <br/>
 
 **This project was deployed on Netlify and Heroku.**
-
-<br/>
 
 ### Furthermore
 
