@@ -45,7 +45,13 @@ const Header = () => {
   let lastSeen;
   if (timeDiff > 60) {
     let hour = Math.round(timeDiff / 60);
-    lastSeen = `${hour} ${hour > 1 ? "hours" : "hour"} ago`;
+
+    if (hour >= 24) {
+      let day = Math.round(hour / 24);
+      lastSeen = `${day} ${day > 1 ? "days" : "day"} ago`;
+    } else {
+      lastSeen = `${hour} ${hour > 1 ? "hours" : "hour"} ago`;
+    }
   } else {
     if (timeDiff === 0) {
       lastSeen = `just now`;
