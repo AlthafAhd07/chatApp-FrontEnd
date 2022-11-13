@@ -9,7 +9,6 @@ import "../styles/chatApp/chatApp.css";
 import socket from "../socket";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { CheckTokenEx } from "../utils/checkTockenExpiration";
 
 export const ChatStateContext = createContext();
 
