@@ -54,6 +54,14 @@ const UserInput = () => {
       date: new Date().toLocaleDateString("fr-CA"),
       status: "sent",
     };
+
+    setChatState((old) => {
+      return {
+        ...old,
+        messages: [...old.messages, newSendMsg],
+      };
+    });
+
     const accessToken = await CheckTokenEx(authUser?.access_token);
 
     fetch("https://chatapp-backend-althaf.herokuapp.com/api/updateMessage", {
@@ -80,12 +88,6 @@ const UserInput = () => {
     });
     setMessage("");
     inpFocusRef.current.focus();
-    setChatState((old) => {
-      return {
-        ...old,
-        messages: [...old.messages, newSendMsg],
-      };
-    });
   }
 
   return (
