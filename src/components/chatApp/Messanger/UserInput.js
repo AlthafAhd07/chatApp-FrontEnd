@@ -11,7 +11,7 @@ import MicIcon from "@mui/icons-material/Mic";
 import { ChatStateContext } from "../../../pages/ChatApp";
 import socket from "../../../socket";
 import { CheckTokenEx } from "../../../utils/checkTockenExpiration";
-const UserInput = ({ messageView }) => {
+const UserInput = () => {
   const { chatState, setChatState, authUser } = useContext(ChatStateContext);
   const [showEmoji, setShowEmoji] = useState(false);
   const [message, setMessage] = useState("");
@@ -64,10 +64,7 @@ const UserInput = ({ messageView }) => {
         messages: [...old.messages, newSendMsg],
       };
     });
-    messageView.current?.scrollIntoView({
-      block: "start",
-      behavior: "smooth",
-    });
+
     const accessToken = await CheckTokenEx(authUser?.access_token);
 
     fetch("https://chatapp-backend-althaf.herokuapp.com/api/updateMessage", {

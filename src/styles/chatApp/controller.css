@@ -59,7 +59,7 @@
 
 .controller__onlineUsers {
   background-color: #ffff;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgb(149 157 165 / 10%) 0px 3px 3px -1px;
   border-radius: 5px;
   height: 125px;
   margin-top: 10px;
@@ -83,6 +83,7 @@
 
 ::-webkit-scrollbar-track {
   background: #f6dddde6;
+  border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb {
   background: #2196f3;

@@ -9,10 +9,11 @@ import "../styles/chatApp/chatApp.css";
 import socket from "../socket";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Toast from "../components/global/alert/Toast";
 
 export const ChatStateContext = createContext();
 
-const ChatApp = () => {
+const ChatApp = ({ alert, setAlert }) => {
   const [authUser, setauthUser] = useState("");
   const [chatState, setChatState] = useState();
   const [chatList, setChatList] = useState([]);
@@ -35,6 +36,7 @@ const ChatApp = () => {
         setauthUser(res.data);
       } catch (error) {
         localStorage.setItem("logged", "false");
+        setAlert({ type: "err", msg: "Please Login Now", visible: true });
         return navigate("/login");
       }
     }

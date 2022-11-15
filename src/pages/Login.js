@@ -4,10 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { postAPI } from "../utils/fetchData";
 
 import "../styles/auth/auth.css";
+import Loader from "../components/global/Loader";
 
-const Login = () => {
+const Login = ({ setAlert }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -17,21 +19,36 @@ const Login = () => {
   }, []);
   async function handleSubmit(e) {
     e.preventDefault();
+
     if (email.length < 1 || password.length < 1) {
+      setAlert({
+        type: "err",
+        msg: "Please fill all fields",
+        visible: true,
+      });
       return;
     }
     try {
+      setLoading(true);
       await postAPI("login", { account: email, password });
 
       localStorage.setItem("logged", "true");
+      setLoading(false);
+      setAlert({ type: "success", msg: "Login Success", visible: true });
       navigate("/");
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+      setAlert({ type: "err", msg: error.response.data.msg, visible: true });
     }
   }
 
   return (
     <div className="auth">
+      {loading && (
+        <div className="loading__wrapper">
+          <Loader />
+        </div>
+      )}
       <div className="auth__wrapper">
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>

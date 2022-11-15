@@ -1,13 +1,16 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 
 import { ChatStateContext } from "../../../pages/ChatApp";
 import SingleMessageUser from "./SingleMessageUser";
 import SingleMessageOpponent from "./SingleMessageOpponent";
 import socket from "../../../socket";
-const Messages = ({ GlobalFocusRefCount, messageView }) => {
+const Messages = ({ GlobalFocusRefCount }) => {
   const { chatState, setChatState, authUser } = useContext(ChatStateContext);
   const ReadMsgs = useRef([]);
   const unReadMsgFocusRef = useRef();
+  let messageView = useRef(null);
+
+  const firstRender = useRef(true);
 
   useEffect(() => {
     if (!GlobalFocusRefCount.current) {
@@ -18,6 +21,16 @@ const Messages = ({ GlobalFocusRefCount, messageView }) => {
     }
   }, [chatState]);
 
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    messageView.current?.scrollIntoView({
+      block: "start",
+      behavior: "smooth",
+    });
+  }, [chatState?.messages.length]);
   useEffect(() => {
     unReadMsgFocusRef.current?.scrollIntoView({
       block: "start",
