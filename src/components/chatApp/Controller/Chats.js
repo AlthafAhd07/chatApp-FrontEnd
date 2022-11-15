@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
@@ -7,9 +7,18 @@ import DoneIcon from "@mui/icons-material/Done";
 import { ChatStateContext } from "../../../pages/ChatApp";
 import socket from "../../../socket";
 import { CheckTokenEx } from "../../../utils/checkTockenExpiration";
+import Loader from "../../global/Loader";
 const Chats = ({ toggled, FetchALLChats }) => {
-  const { chatState, setChatState, chatList, setChatList, authUser } =
-    useContext(ChatStateContext);
+  const {
+    chatState,
+    setChatState,
+    setChatLoading,
+    chatList,
+    setChatList,
+    authUser,
+  } = useContext(ChatStateContext);
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!chatState) {
@@ -59,12 +68,21 @@ const Chats = ({ toggled, FetchALLChats }) => {
   }, [socket, authUser]);
 
   useEffect(() => {
+    setLoading(true);
     if (authUser) {
       FetchALLChats();
     }
   }, [authUser]);
 
+  useEffect(() => {
+    if (chatList) {
+      setLoading(false);
+    }
+  }, [chatList]);
+  console.log(chatList);
+
   async function selectChat(opponent) {
+    setChatLoading(true);
     const accessToken = await CheckTokenEx(authUser?.access_token);
     fetch("https://chatapp-backend-althaf.herokuapp.com/api/specificChat", {
       method: "POST",
@@ -78,6 +96,7 @@ const Chats = ({ toggled, FetchALLChats }) => {
       .then((res) => res.json())
       .then((res) => {
         setChatState(res.msg);
+        setChatLoading(false);
         if (chatState) {
           socket.emit("leaveRoom", chatState._id);
         }
@@ -94,13 +113,13 @@ const Chats = ({ toggled, FetchALLChats }) => {
       }}
     >
       <h5>Messages</h5>
+      {loading && <Loader height={"90%"} />}
       <div className="controller__ChatsList">
         {chatList?.map((chat) => {
           const opponetUser = chat.participant.filter(
             (v) => v !== authUser?.user?.username
           )[0];
           let unReadMsgCout = chat.unReadMsgs[authUser?.user?.username];
-          console.log(chat);
           return (
             <div
               className="controller__singleChat"

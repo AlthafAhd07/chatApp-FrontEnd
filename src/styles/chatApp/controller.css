@@ -183,6 +183,10 @@
 @media only screen and (max-width: 650px) {
   .controller__Chats {
     height: calc(100% - 260px);
+    position: relative;
+  }
+  .controller__Chats .loader {
+    width: calc(100% - 20px);
   }
   .controller__Chats[data-height="true"] {
     height: calc(100% - 163px);

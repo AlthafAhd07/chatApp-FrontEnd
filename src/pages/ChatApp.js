@@ -17,6 +17,7 @@ const ChatApp = () => {
   const [chatState, setChatState] = useState();
   const [chatList, setChatList] = useState([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [chatLoading, setChatLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -59,6 +60,8 @@ const ChatApp = () => {
         setChatList,
         onlineUsers,
         setOnlineUsers,
+        chatLoading,
+        setChatLoading,
       }}
     >
       <div className="chatApp">

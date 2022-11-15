@@ -8,8 +8,14 @@ import socket from "../../../socket";
 import { CheckTokenEx } from "../../../utils/checkTockenExpiration";
 
 const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
-  const { setChatState, chatState, onlineUsers, setOnlineUsers, authUser } =
-    useContext(ChatStateContext);
+  const {
+    setChatState,
+    chatState,
+    setChatLoading,
+    onlineUsers,
+    setOnlineUsers,
+    authUser,
+  } = useContext(ChatStateContext);
 
   useEffect(() => {
     if (!socket) return;
@@ -29,6 +35,7 @@ const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
     });
   }, [socket]);
   async function selectChat(opponent) {
+    setChatLoading(true);
     if (!chatState?.Chatname.includes(opponent)) {
       const accessToken = await CheckTokenEx(authUser?.access_token);
 
@@ -44,6 +51,7 @@ const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
         .then((res) => res.json())
         .then((res) => {
           setChatState(res.msg);
+          setChatLoading(true);
           FetchALLChats();
           if (chatState) {
             socket.emit("leaveRoom", chatState._id);

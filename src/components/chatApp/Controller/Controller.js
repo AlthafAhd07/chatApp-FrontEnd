@@ -11,7 +11,7 @@ import socket from "../../../socket";
 import { CheckTokenEx } from "../../../utils/checkTockenExpiration";
 
 const Controller = () => {
-  const { chatState, setChatState, setChatList, authUser } =
+  const { chatState, setChatState, setChatLoading, setChatList, authUser } =
     useContext(ChatStateContext);
 
   const [toggled, setToggled] = useState(false);
@@ -46,6 +46,7 @@ const Controller = () => {
       });
   }, [searchInput, authUser?.user?.username]);
   async function selectChat(opponent) {
+    setChatLoading(true);
     const accessToken = await CheckTokenEx(authUser?.access_token);
     fetch("https://chatapp-backend-althaf.herokuapp.com/api/specificChat", {
       method: "POST",
@@ -59,6 +60,7 @@ const Controller = () => {
       .then((res) => res.json())
       .then((res) => {
         setChatState(res.msg);
+        setChatLoading(false);
         FetchALLChats();
         if (chatState) {
           socket.emit("leaveRoom", chatState._id);
