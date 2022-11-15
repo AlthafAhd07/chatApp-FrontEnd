@@ -16,6 +16,7 @@ const Login = ({ setAlert }) => {
     if (localStorage.getItem("logged") === "true") {
       navigate("/");
     }
+    // eslint-disable-next-line
   }, []);
   async function handleSubmit(e) {
     e.preventDefault();

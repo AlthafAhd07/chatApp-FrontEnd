@@ -20,6 +20,7 @@ const Register = ({ setAlert }) => {
     if (localStorage.getItem("logged") === "true") {
       navigate("/");
     }
+    // eslint-disable-next-line
   }, []);
   function handleInputChange(e) {
     setUserData((old) => {

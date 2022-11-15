@@ -100,8 +100,6 @@ const UserInput = () => {
 
         <div className="main__InputAndEmoji">
           <input
-            type="text"
-            name="search"
             placeholder="Type a message here..."
             value={message}
             onInput={handleOnChange}
