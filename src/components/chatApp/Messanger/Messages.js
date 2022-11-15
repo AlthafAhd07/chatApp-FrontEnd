@@ -4,9 +4,8 @@ import { ChatStateContext } from "../../../pages/ChatApp";
 import SingleMessageUser from "./SingleMessageUser";
 import SingleMessageOpponent from "./SingleMessageOpponent";
 import socket from "../../../socket";
-const Messages = ({ GlobalFocusRefCount }) => {
+const Messages = ({ GlobalFocusRefCount, messageView }) => {
   const { chatState, setChatState, authUser } = useContext(ChatStateContext);
-  let messageView = useRef(null);
   const ReadMsgs = useRef([]);
   const unReadMsgFocusRef = useRef();
 

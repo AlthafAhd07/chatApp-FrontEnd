@@ -11,6 +11,7 @@ import Loader from "../../global/Loader";
 const Main = () => {
   const { chatState, chatLoading } = useContext(ChatStateContext);
   const GlobalFocusRefCount = useRef(true);
+  let messageView = useRef(null);
 
   return (
     <>
@@ -18,8 +19,11 @@ const Main = () => {
       {!chatLoading && chatState ? (
         <main className="main" data-chatmain={!!chatState}>
           <Header />
-          <Messages GlobalFocusRefCount={GlobalFocusRefCount} />
-          <UserInput />
+          <Messages
+            messageView={messageView}
+            GlobalFocusRefCount={GlobalFocusRefCount}
+          />
+          <UserInput messageView={messageView} />
         </main>
       ) : (
         !chatLoading && (

@@ -11,7 +11,7 @@ import MicIcon from "@mui/icons-material/Mic";
 import { ChatStateContext } from "../../../pages/ChatApp";
 import socket from "../../../socket";
 import { CheckTokenEx } from "../../../utils/checkTockenExpiration";
-const UserInput = () => {
+const UserInput = ({ messageView }) => {
   const { chatState, setChatState, authUser } = useContext(ChatStateContext);
   const [showEmoji, setShowEmoji] = useState(false);
   const [message, setMessage] = useState("");
@@ -55,13 +55,19 @@ const UserInput = () => {
       status: "sent",
     };
 
+    setMessage("");
+    inpFocusRef.current.focus();
+
     setChatState((old) => {
       return {
         ...old,
         messages: [...old.messages, newSendMsg],
       };
     });
-
+    messageView.current?.scrollIntoView({
+      block: "start",
+      behavior: "smooth",
+    });
     const accessToken = await CheckTokenEx(authUser?.access_token);
 
     fetch("https://chatapp-backend-althaf.herokuapp.com/api/updateMessage", {
@@ -86,8 +92,6 @@ const UserInput = () => {
       )[0],
       conversationId: chatState._id,
     });
-    setMessage("");
-    inpFocusRef.current.focus();
   }
 
   return (
