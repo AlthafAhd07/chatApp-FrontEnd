@@ -18,8 +18,13 @@ const LeftSideBar = () => {
 
   return (
     <aside className="leftSideBar">
-      <div className="leftSideBar__profilePic">
-        <img src={user?.avatar} alt="Profile" />
+      <div className="leftSideBar__profilePic" data-display={!!user?.avatar}>
+        <img
+          className="skeleton"
+          src={user?.avatar}
+          alt=""
+          data-display={!!user?.avatar}
+        />
       </div>
       <nav className="leftSideBar__navLinks ">
         <ul>

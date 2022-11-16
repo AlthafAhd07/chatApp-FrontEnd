@@ -16,12 +16,12 @@ const Chats = ({ toggled, FetchALLChats }) => {
     chatList,
     setChatList,
     authUser,
+    loadingAllChat,
+    setLoadingAllChat,
   } = useContext(ChatStateContext);
 
-  const [loading, setLoading] = useState(false);
-
   useEffect(() => {
-    setLoading(true);
+    setLoadingAllChat(true);
     if (authUser) {
       FetchALLChats();
     }
@@ -29,7 +29,7 @@ const Chats = ({ toggled, FetchALLChats }) => {
 
   useEffect(() => {
     if (chatList) {
-      setLoading(false);
+      setLoadingAllChat(false);
     }
   }, [chatList]);
   useEffect(() => {
@@ -111,12 +111,9 @@ const Chats = ({ toggled, FetchALLChats }) => {
       }}
     >
       <h5>Messages</h5>
-      {loading && <Loader height={"90%"} />}
+      {loadingAllChat && <Loader height={"90%"} />}
       <div className="controller__ChatsList">
         {chatList?.map((chat) => {
-          {
-            console.log(chat);
-          }
           const opponetUser = chat.participant.filter(
             (v) => v.name !== authUser?.user?.username
           )[0];

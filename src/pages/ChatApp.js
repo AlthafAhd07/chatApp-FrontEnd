@@ -18,6 +18,7 @@ const ChatApp = ({ setAlert }) => {
   const [chatList, setChatList] = useState([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [chatLoading, setChatLoading] = useState(false);
+  const [loadingAllChat, setLoadingAllChat] = useState(false);
 
   const navigate = useNavigate();
 
@@ -29,11 +30,13 @@ const ChatApp = ({ setAlert }) => {
     }
     async function getRefreshToken() {
       try {
+        setLoadingAllChat(true);
         const res = await axios.get("/api/refresh_token", {
           withCredentials: true,
         });
         setauthUser(res.data);
       } catch (error) {
+        setLoadingAllChat(false);
         localStorage.setItem("logged", "false");
         setAlert({ type: "err", msg: "Please Login Now", visible: true });
         return navigate("/login");
@@ -63,6 +66,8 @@ const ChatApp = ({ setAlert }) => {
         setOnlineUsers,
         chatLoading,
         setChatLoading,
+        loadingAllChat,
+        setLoadingAllChat,
       }}
     >
       <div className="chatApp">
