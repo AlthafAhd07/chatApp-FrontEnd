@@ -21,6 +21,18 @@ const Chats = ({ toggled, FetchALLChats }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
+    if (authUser) {
+      FetchALLChats();
+    }
+  }, [authUser]);
+
+  useEffect(() => {
+    if (chatList) {
+      setLoading(false);
+    }
+  }, [chatList]);
+  useEffect(() => {
     if (!chatState) {
       return;
     }
@@ -67,24 +79,10 @@ const Chats = ({ toggled, FetchALLChats }) => {
     });
   }, [socket, authUser]);
 
-  useEffect(() => {
-    setLoading(true);
-    if (authUser) {
-      FetchALLChats();
-    }
-  }, [authUser]);
-
-  useEffect(() => {
-    if (chatList) {
-      setLoading(false);
-    }
-  }, [chatList]);
-  console.log(chatList);
-
   async function selectChat(opponent) {
     setChatLoading(true);
     const accessToken = await CheckTokenEx(authUser?.access_token);
-    fetch("https://chatapp-backend-althaf.herokuapp.com/api/specificChat", {
+    fetch("/api/specificChat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -116,8 +114,11 @@ const Chats = ({ toggled, FetchALLChats }) => {
       {loading && <Loader height={"90%"} />}
       <div className="controller__ChatsList">
         {chatList?.map((chat) => {
+          {
+            console.log(chat);
+          }
           const opponetUser = chat.participant.filter(
-            (v) => v !== authUser?.user?.username
+            (v) => v.name !== authUser?.user?.username
           )[0];
           let unReadMsgCout = chat.unReadMsgs[authUser?.user?.username];
           return (
@@ -125,18 +126,16 @@ const Chats = ({ toggled, FetchALLChats }) => {
               className="controller__singleChat"
               key={chat._id}
               onClick={() => {
-                selectChat(opponetUser);
+                selectChat(opponetUser.name);
               }}
             >
-              <div className="controller__singleChatProfile"></div>
+              <div className="controller__singleChatProfile">
+                {/* <img src={opponetUser.avatar} alt="userProfile" /> */}
+
+                <img src={opponetUser.avatar} alt="" />
+              </div>
               <div className="controller__singleChatName">
-                <h3>
-                  {
-                    chat.participant.filter(
-                      (v) => v !== authUser?.user?.username
-                    )[0]
-                  }
-                </h3>
+                <h3>{opponetUser.name}</h3>
                 <div>
                   {chat?.messages[0]?.from === authUser?.user?.username && (
                     <span className="controller__lastChatStatus">
@@ -157,11 +156,7 @@ const Chats = ({ toggled, FetchALLChats }) => {
                   )}
                   <span className="controller__lastChat">
                     {chat?.messages[0]?.message ||
-                      `No messages Yet with ${
-                        chat.participant.filter(
-                          (v) => v !== authUser?.user?.username
-                        )[0]
-                      }`}
+                      `No messages Yet with ${opponetUser.name}`}
                   </span>
                 </div>
               </div>

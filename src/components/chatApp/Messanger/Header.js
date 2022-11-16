@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from "react";
 import CallIcon from "@mui/icons-material/Call";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import profilePic from "../../../images/vicky-hladynets-C8Ta0gwPbQg-unsplash.jpg";
 import { ReactComponent as BakcIcon } from "../../../images/thin-arrow-left-icon.svg";
 
 import { ChatStateContext } from "../../../pages/ChatApp";
@@ -84,7 +83,7 @@ const Header = () => {
           <span onClick={() => setChatState("")}>
             <BakcIcon className="header__backIcon" />
           </span>
-          <img src={profilePic} alt="" />
+          <img src={opponent?.avatar} alt="" />
           <div>
             <h3>{opponent?.username}</h3>
 

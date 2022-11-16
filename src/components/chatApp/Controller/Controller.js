@@ -21,7 +21,7 @@ const Controller = () => {
 
   const FetchALLChats = async () => {
     const accessToken = await CheckTokenEx(authUser?.access_token);
-    fetch("https://chatapp-backend-althaf.herokuapp.com/api/getAllUserChats", {
+    fetch("/api/getAllUserChats", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -38,7 +38,7 @@ const Controller = () => {
   useEffect(() => {
     if (!searchInput) return;
     fetch(
-      `https://chatapp-backend-althaf.herokuapp.com/api/searchUser?username=${searchInput}&currentUser=${authUser?.user?.username}`
+      `/api/searchUser?username=${searchInput}&currentUser=${authUser?.user?.username}`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -48,7 +48,7 @@ const Controller = () => {
   async function selectChat(opponent) {
     setChatLoading(true);
     const accessToken = await CheckTokenEx(authUser?.access_token);
-    fetch("https://chatapp-backend-althaf.herokuapp.com/api/specificChat", {
+    fetch("/api/specificChat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -102,7 +102,9 @@ const Controller = () => {
                 selectChat(user.username);
               }}
             >
-              <div className="controller__singleChatProfile"></div>
+              <div className="controller__singleChatProfile">
+                <img src={user.avatar} alt="userProfile" />
+              </div>
               <div className="controller__singleChatName">
                 <h3>{user.username}</h3>
                 <div>

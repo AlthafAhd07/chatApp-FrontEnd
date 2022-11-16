@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import "../../../styles/chatApp/leftSideBar.css";
 
@@ -8,13 +8,18 @@ import ContactsIcon from "@mui/icons-material/Contacts";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import SettingsIcon from "@mui/icons-material/Settings";
-import ProfilePic from "../../../images/vicky-hladynets-C8Ta0gwPbQg-unsplash.jpg";
+
+import { ChatStateContext } from "../../../pages/ChatApp";
 
 const LeftSideBar = () => {
+  const {
+    authUser: { user },
+  } = useContext(ChatStateContext);
+
   return (
     <aside className="leftSideBar">
       <div className="leftSideBar__profilePic">
-        <img src={ProfilePic} alt="Profile" />
+        <img src={user?.avatar} alt="Profile" />
       </div>
       <nav className="leftSideBar__navLinks ">
         <ul>

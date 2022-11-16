@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 
-import Avatar from "../../../images/vicky-hladynets-C8Ta0gwPbQg-unsplash.jpg";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import { ChatStateContext } from "../../../pages/ChatApp";
@@ -39,7 +38,7 @@ const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
     if (!chatState?.Chatname.includes(opponent)) {
       const accessToken = await CheckTokenEx(authUser?.access_token);
 
-      fetch("https://chatapp-backend-althaf.herokuapp.com/api/specificChat", {
+      fetch("/api/specificChat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -95,7 +94,7 @@ const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
                   selectChat(user.username);
                 }}
               >
-                <img src={Avatar} alt="" loading="lazy" />
+                <img src={user.avatar} alt="" loading="lazy" />
                 <p>{user.username}</p>
               </div>
             );

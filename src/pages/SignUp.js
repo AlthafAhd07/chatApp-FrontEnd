@@ -67,7 +67,7 @@ const Register = ({ setAlert }) => {
       localStorage.setItem("logged", "true");
       setAlert({
         type: "success",
-        msg: "Account successfully created.",
+        msg: "Account created successfully.",
         visible: true,
       });
       setLoading(false);

@@ -46,36 +46,6 @@ const Messages = ({ GlobalFocusRefCount }) => {
         };
       });
     });
-    // socket.on("updateOffline", (data) => {
-    //   fetch("http://localhost:3001/api/specificChat", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Accept: "application/json",
-    //     },
-    //     body: JSON.stringify({ username, opponent: data }),
-    //   })
-    //     .then((res) => res.json())
-    //     .then((res) => {
-    //       setChatState(res.msg);
-    //       // socket.emit("join__room", res.msg._id);
-    //     });
-    // });
-    // socket.on("updateOnline", (data) => {
-    //   fetch("http://localhost:3001/api/specificChat", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Accept: "application/json",
-    //     },
-    //     body: JSON.stringify({ username, opponent: data.username }),
-    //   })
-    //     .then((res) => res.json())
-    //     .then((res) => {
-    //       setChatState(res.msg);
-    //       socket.emit("join__room", res.msg._id);
-    //     });
-    // });
   }, [socket]);
   return (
     <div className="main__Messages">
