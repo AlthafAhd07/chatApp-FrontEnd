@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
-// chatapp-backend-althaf.herokuapp.com/
-const URL = "ws://localhost:3001";
+//
+const URL = "ws://chatapp-backend-althaf.herokuapp.com/";
 const socket = io(URL, {
   reconnectionDelayMax: 10000,
 });
