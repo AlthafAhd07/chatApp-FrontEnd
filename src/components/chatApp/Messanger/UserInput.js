@@ -64,10 +64,18 @@ const UserInput = () => {
         messages: [...old.messages, newSendMsg],
       };
     });
+    socket.emit("send_message", {
+      room: chatState._id,
+      message: newSendMsg,
+      receiver: chatState.participant.filter(
+        (i) => i.name !== authUser?.user?.username
+      )[0].name,
+      conversationId: chatState._id,
+    });
 
     const accessToken = await CheckTokenEx(authUser?.access_token);
 
-    fetch("https://chatapp-backend-althaf.herokuapp.com/api/updateMessage", {
+    fetch("/api/updateMessage", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -76,19 +84,11 @@ const UserInput = () => {
       },
       body: JSON.stringify({
         opponent: chatState?.participant.filter(
-          (v) => v !== authUser?.user?.username
+          (v) => v.name !== authUser?.user?.username
         )[0],
         newMsg: newSendMsg,
       }),
     }).then((res) => res.json());
-    socket.emit("send_message", {
-      room: chatState._id,
-      message: newSendMsg,
-      receiver: chatState.participant.filter(
-        (i) => i !== authUser?.user?.username
-      )[0],
-      conversationId: chatState._id,
-    });
   }
 
   return (

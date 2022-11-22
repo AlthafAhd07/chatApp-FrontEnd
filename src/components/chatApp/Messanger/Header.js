@@ -17,15 +17,13 @@ const Header = () => {
   const [typing, setTyping] = useState(false);
   const [opponetOnline, setOpponetOnline] = useState(opponent?.online[0]);
 
-  function diff_minutes(opponentOnlineTIme) {
-    var diff = (new Date().getTime() - opponentOnlineTIme.getTime()) / 1000;
+  function diff_minutes(opponentOnlineTime) {
+    var diff = (new Date().getTime() - opponentOnlineTime.getTime()) / 1000;
     diff /= 60;
     return Math.abs(Math.round(diff));
   }
 
   let timeDiff = diff_minutes(new Date(opponent?.online[1]));
-
-  // let timeDiff = diff_minutes(new Date(opponent?.online[1]));
 
   useEffect(() => {
     socket.on("updateOffline", (data) => {
@@ -74,7 +72,7 @@ const Header = () => {
     return () => {
       setOpponetOnline("false");
     };
-  }, [onlineUsers, chatState]);
+  }, [onlineUsers, chatState.Chatname]);
 
   return (
     <div className="main__header">

@@ -19,6 +19,24 @@ const Chats = ({ toggled, FetchALLChats }) => {
     loadingAllChat,
     setLoadingAllChat,
   } = useContext(ChatStateContext);
+  useEffect(() => {
+    socket.on("recieveMsgStatus", (msgId) => {
+      if (!!chatList.find((i) => i.messages[0].id === msgId)) {
+        setChatList((old) =>
+          old.map((item) => {
+            if (item.messages[0].id === msgId) {
+              return {
+                ...item,
+                messages: [{ ...item.messages[0], status: "read" }],
+              };
+            } else {
+              return item;
+            }
+          })
+        );
+      }
+    });
+  }, [socket, chatList]);
 
   useEffect(() => {
     setLoadingAllChat(true);
@@ -53,7 +71,10 @@ const Chats = ({ toggled, FetchALLChats }) => {
   useEffect(() => {
     if (!socket) return;
     socket.on("updateChatList", ({ conversationId, message }) => {
-      if (!!chatList) {
+      console.log(conversationId, message);
+      if (chatList.length > 0) {
+        console.log(chatList);
+        console.log(!!chatList.find((i) => i._id === conversationId));
         if (!!chatList.find((i) => i._id === conversationId)) {
           setChatList((old) =>
             old.map((item) => {
@@ -77,7 +98,7 @@ const Chats = ({ toggled, FetchALLChats }) => {
         }
       }
     });
-  }, [socket, authUser]);
+  }, [socket, authUser, chatList]);
 
   async function selectChat(opponent) {
     setChatLoading(true);
@@ -99,6 +120,7 @@ const Chats = ({ toggled, FetchALLChats }) => {
           socket.emit("leaveRoom", chatState._id);
         }
         socket.emit("join__room", res.msg._id);
+        socket.emit("newUserUpdate", "abc");
       });
   }
 
@@ -160,6 +182,7 @@ const Chats = ({ toggled, FetchALLChats }) => {
               <div className="controller__singleChatLastMsg">
                 {chat?.messages[0]?.time}
               </div>
+
               {unReadMsgCout > 0 && (
                 <div
                   style={{ position: "absolute", right: "20px", bottom: "0" }}

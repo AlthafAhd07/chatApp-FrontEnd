@@ -62,10 +62,17 @@ const Controller = () => {
         setChatState(res.msg);
         setChatLoading(false);
         FetchALLChats();
+
+        if (res?.msg?.newChat === true) {
+          console.log("done");
+          socket.connect();
+        }
+
         if (chatState) {
           socket.emit("leaveRoom", chatState._id);
         }
         socket.emit("join__room", res.msg._id);
+
         setSearchInput("");
       });
   }

@@ -16,7 +16,6 @@ const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
     authUser,
   } = useContext(ChatStateContext);
 
-  console.log(onlineUsers);
   useEffect(() => {
     if (!socket) return;
 
@@ -87,7 +86,6 @@ const OnlineUsers = ({ toggled, setToggled, FetchALLChats }) => {
       <div className="controller__onlineUserWrapper">
         <div className="controller__onlineUserProfileList">
           {onlineUsers?.map((user) => {
-            console.log(user);
             return (
               <div
                 className="controller__onlineUserProfile"

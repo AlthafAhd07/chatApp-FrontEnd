@@ -32,7 +32,7 @@ const SingleMessageOpponent = ({
       });
     });
     const accessToken = await CheckTokenEx(authUser?.access_token);
-    fetch("https://chatapp-backend-althaf.herokuapp.com/api/updateMsgStatus", {
+    fetch("/api/updateMsgStatus", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
