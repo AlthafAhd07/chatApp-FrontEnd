@@ -10,11 +10,30 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 import { ChatStateContext } from "../../../pages/ChatApp";
+import { useNavigate } from "react-router-dom";
+import { CheckTokenEx } from "../../../utils/checkTockenExpiration";
 
 const LeftSideBar = () => {
   const {
-    authUser: { user },
+    authUser: { user, access_token },
   } = useContext(ChatStateContext);
+
+  const navigate = useNavigate();
+
+  const handleLogOut = async () => {
+    localStorage.removeItem("logged");
+
+    navigate("/login");
+
+    const accessToken = await CheckTokenEx(access_token);
+
+    fetch("api/logout", {
+      headers: {
+        Authorization: accessToken,
+        "Content-Type": "application/json",
+      },
+    });
+  };
 
   return (
     <aside className="leftSideBar">
@@ -24,6 +43,7 @@ const LeftSideBar = () => {
           src={user?.avatar}
           alt=""
           data-display={!!user?.avatar}
+          onClick={handleLogOut}
         />
       </div>
       <nav className="leftSideBar__navLinks ">

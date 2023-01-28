@@ -71,10 +71,7 @@ const Chats = ({ toggled, FetchALLChats }) => {
   useEffect(() => {
     if (!socket) return;
     socket.on("updateChatList", ({ conversationId, message }) => {
-      console.log(conversationId, message);
       if (chatList.length > 0) {
-        console.log(chatList);
-        console.log(!!chatList.find((i) => i._id === conversationId));
         if (!!chatList.find((i) => i._id === conversationId)) {
           setChatList((old) =>
             old.map((item) => {

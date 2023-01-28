@@ -11,6 +11,7 @@ import MicIcon from "@mui/icons-material/Mic";
 import { ChatStateContext } from "../../../pages/ChatApp";
 import socket from "../../../socket";
 import { CheckTokenEx } from "../../../utils/checkTockenExpiration";
+
 const UserInput = () => {
   const { chatState, setChatState, authUser } = useContext(ChatStateContext);
   const [showEmoji, setShowEmoji] = useState(false);
@@ -64,6 +65,7 @@ const UserInput = () => {
         messages: [...old.messages, newSendMsg],
       };
     });
+
     socket.emit("send_message", {
       room: chatState._id,
       message: newSendMsg,

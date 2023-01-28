@@ -37,8 +37,10 @@ const Messages = ({ GlobalFocusRefCount }) => {
       behavior: "smooth",
     });
   }, []);
+  console.log(chatState);
   useEffect(() => {
     socket.on("receive_msg", (data) => {
+      console.log(chatState);
       setChatState((old) => {
         return {
           ...old,
@@ -47,6 +49,7 @@ const Messages = ({ GlobalFocusRefCount }) => {
       });
     });
   }, [socket]);
+
   return (
     <div className="main__Messages">
       <div className="main__specificDateMsg">
